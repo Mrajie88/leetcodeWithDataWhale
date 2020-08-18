@@ -40,3 +40,27 @@ class Solution:
         
         return result
 ```
+### 多数元素
+```
+# 偷懒写法
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums.sort()
+        mid = len(nums)//2
+        return nums[mid]
+        
+# 占空间写法
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        record = {}
+        mid = len(nums)//2
+        for i in range(len(nums)):
+            if(nums[i] in record):
+                record[nums[i]] +=1
+            else:
+                record[nums[i]] = 1
+            if(record[nums[i]]>mid):
+                return nums[i]
+        return 0
+
+```
