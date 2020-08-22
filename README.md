@@ -110,3 +110,21 @@ class Solution:
         
         return dp1[-1] if dp1[-1]>dp2[-1] else dp2[-1]
 ```
+### 最长递增子序列
+```
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if(len(nums)<2):
+            return len(nums)
+        last = 1
+        result = 1
+        for i in range(1,len(nums)):
+            if(nums[i]>nums[i-1]):
+                last +=1
+                if(last>result):
+                    result = last
+            else:
+                last = 1
+
+        return result
+```
