@@ -64,3 +64,25 @@ class Solution:
         return 0
 
 ```
+## Task02 动态规划
+
+### 打家劫舍
+```
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if(len(nums)<1):
+            return 0
+        # 到第n晚能偷到最多的钱
+        one,two = nums[0],None
+        cur = nums[0]
+        for i in range(1,len(nums)):
+            if(i==1):
+                cur = max(one,nums[i])
+                two = one
+                one = cur
+                continue
+            cur = max(one,two+nums[i])
+            two = one
+            one = cur
+        return cur
+```
