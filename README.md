@@ -86,3 +86,27 @@ class Solution:
             one = cur
         return cur
 ```
+### 打家劫舍2
+```
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if(len(nums)<1):
+            return 0
+        # 分成两种情况 偷不偷第一家
+        dp1 = [0]*len(nums)
+        dp1[0] = nums[0]
+        for i in range(1,len(dp1)):
+            if(i==1 or i==len(dp1)-1):
+                dp1[i] = dp1[i-1]
+                continue
+            dp1[i] = max(dp1[i-1],dp1[i-2]+nums[i])
+        
+        dp2 = [0]*len(nums)
+        for i in range(1,len(dp2)):
+            if(i==1):
+                dp2[i] = nums[i]
+                continue
+            dp2[i] = max(dp2[i-1],dp2[i-2]+nums[i])
+        
+        return dp1[-1] if dp1[-1]>dp2[-1] else dp2[-1]
+```
