@@ -224,3 +224,25 @@ class Solution:
 
         return left if nums[left]>=target else left+1
 ```
+### 快乐数
+```
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        def getSum(n):
+            result = 0
+            while(n>0):
+                result += (n%10)**2
+                n = n//10
+            return result
+        
+        hashset = set()
+        while(not n==1):
+            temp = getSum(n)
+            #print(temp)
+            if(temp in hashset):
+                return False
+            hashset.add(temp)
+            n = temp
+        
+        return True
+```
