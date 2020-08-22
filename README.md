@@ -128,3 +128,80 @@ class Solution:
 
         return result
 ```
+### 最长回文子串
+```
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if(len(s)<2):
+            return s
+        dp = [[False]*len(s) for i in range(len(s))]
+
+        for i in range(len(s)):
+           dp[i][i] = True
+
+        start = 0
+        max_length = 1
+        for j in range(1,len(s)):
+            for i in range(0,j):
+                if(s[i]==s[j]):
+                    if(j-i<3):
+                        dp[i][j] = True
+                    else:
+                        dp[i][j] = dp[i+1][j-1]
+                else:
+                    dp[i][j] = False
+
+                if dp[i][j]:
+                    cur_length = j-i+1
+                    if(cur_length>max_length):
+                        start = i
+                        max_length = cur_length
+
+        return s[start:start+max_length]
+```
+### 最长回文子序列
+```
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        if(len(s)<2):
+            return len(s)
+        dp = [[0]*len(s) for i in range(len(s))]
+        for i in range(len(s)):
+            dp[i][i] = 1
+        max_length = 1
+
+        for i in range(len(s)-1,-1,-1):
+            for j in range(i+1,len(s)):
+                if(s[i]==s[j]):
+                    dp[i][j] = dp[i+1][j-1]+2
+                else:
+                    dp[i][j] = max(dp[i+1][j],dp[i][j-1])
+
+                if(dp[i][j]>max_length):
+                    max_length = dp[i][j]
+        
+        return max_length
+```
+### 编辑距离
+```
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        
+        dp = [[0]*len(word2) for _ in range(len(word1))]
+
+        def find(n,m):
+            if(n==-1):
+                return m+1
+            if(m==-1):
+                return n+1
+            if(not dp[n][m]==0):
+                return dp[n][m]
+            
+            if(word1[n]==word2[m]):
+                return find(n-1,m-1)
+            else:
+                dp[n][m] = min(find(n-1,m),find(n,m-1),find(n-1,m-1))+1
+                return dp[n][m]
+        
+        return find(len(word1)-1,len(word2)-1)
+```
