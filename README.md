@@ -277,3 +277,26 @@ class Solution:
                 dict1[item] -=1
         return result
 ```
+###单词规律
+```
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        words = str.split(" ")
+        if(not len(words)==len(pattern)):
+            return False
+        dict1 = dict()
+        dict2 = dict()
+        for i in range(len(words)):
+            if(pattern[i] not in dict1):
+                dict1[pattern[i]] = words[i]
+                if(words[i] not in dict2):
+                    dict2[words[i]] = pattern[i]
+                else:
+                    return False
+            else:
+                
+                if(not (words[i]==dict1[pattern[i]] and pattern[i]==dict2[words[i]])):
+                    return False
+        return True
+        
+```
