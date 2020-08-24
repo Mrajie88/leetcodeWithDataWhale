@@ -258,3 +258,22 @@ class Solution:
                 result.append(item)
         return result
 ```
+### 两个数组的交集2
+```
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dict1 = dict()
+        result = []
+        for item in nums1:
+            if(item in dict1):
+                dict1[item] +=1
+            else:
+                dict1[item] = 1
+    
+
+        for item in nums2:
+            if(item in dict1 and dict1[item]>0):
+                result.append(item)
+                dict1[item] -=1
+        return result
+```
